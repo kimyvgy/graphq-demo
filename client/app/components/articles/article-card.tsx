@@ -71,7 +71,7 @@ export default function ArticleCard({
     <Card radius={0} className={cx(classes.card, className)} {...others}>
       <Card.Section>
         <a {...linkProps}>
-          <Image src={post.previewImage as string|undefined} height={180} />
+          <Image src={post.thumbnail_url as string|undefined} height={180} />
         </a>
       </Card.Section>
 
