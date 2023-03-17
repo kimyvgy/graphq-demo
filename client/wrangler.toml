@@ -1,0 +1,21 @@
+name = "viblo-asia-clone-local"
+
+workers_dev = false
+main = "./build/index.js"
+compatibility_date = "2022-04-05"
+
+[site]
+bucket = "./public"
+
+[build]
+command = "npm run build && sed -i 's/typeof module<\"u\"/false/' build/index.js"
+
+[vars]
+GOOGLE_ANALYTICS_ID = ""
+GRAPHQL_API_HOST = "http://localhost:4000"
+
+[env.production]
+name = "viblo-asia-clone"
+[env.production.vars]
+GOOGLE_ANALYTICS_ID = "G-KYM49WCWEF"
+GRAPHQL_API_HOST = "https://viblo.webee.asia/graphql"
