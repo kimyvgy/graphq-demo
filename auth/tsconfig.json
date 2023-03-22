@@ -1,0 +1,13 @@
+{
+  "include": ["src/**/*.ts", "generate-jwk.js"],
+  "exclude": ["node_modules"],
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "declaration": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./src/types"]
+  }
+}
