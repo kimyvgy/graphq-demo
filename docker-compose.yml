@@ -1,0 +1,64 @@
+version: '3.6'
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    volumes:
+    - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+  graphql-engine:
+    image: hasura/graphql-engine:v2.21.0
+    ports:
+    - "8080:8080"
+    depends_on:
+    - "postgres"
+    - "auth"
+    restart: always
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+      PG_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
+      # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      AUTH_SERVICE_URL: http://auth:4000
+      # Đặt mật khẩu trang Hasura
+      HASURA_GRAPHQL_ADMIN_SECRET: "secret"
+      # Tạo role mặc định khi chưa đăng nhập
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
+      # Bật remote schema
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
+      # Cấu hình JWT Authentication mode
+      HASURA_GRAPHQL_JWT_SECRET: |
+        {
+          "type": "RS256",
+          "jwk_url": "http://auth:4000/.well-known/jwks.json",
+          "issuer": "auth",
+          "audience": "demo",
+          "claims_namespace_path": "$",
+          "claims_format": "json",
+          "claims_map": {
+            "x-hasura-allowed-roles": { "path": "$.allowed_roles" },
+            "x-hasura-default-role": { "path": "$.default_role" },
+            "x-hasura-user-id": { "path": "$.user_id" }
+          }
+        }
+  auth:
+    image: node:16-alpine
+    tty: true
+    working_dir: /auth
+    volumes:
+      - ./auth:/auth
+    ports:
+      - 4000:4000
+
+volumes:
+  db_data:
