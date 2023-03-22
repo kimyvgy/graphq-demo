@@ -3,22 +3,26 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { RESTDataSource } from '@apollo/datasource-rest';
 
 class VibloAPI extends RESTDataSource {
-  override baseURL = 'https://api.viblo.asia/';
+  override baseURL = 'https://viblo.asia/api/';
 
   async getNewestPosts(page: number = 1, limit: number = 20) {
-    const { data } = await this.get(`posts/newest?limit=${limit}&page=${page}`);
+    try {
+      const { data } = await this.get(`posts/newest?limit=${limit}&page=${page}`);
 
-    return data.map((post) => {
-      return {
-        id: post.id,
-        slug: post.slug,
-        title: post.title,
-        user_id: post.user_id,
-        thumbnail_url: post.thumbnail_url,
-        contents_short: post.contents_short,
-        contents: post.contents,
-      }
-    });
+      return data.map((post) => {
+        return {
+          id: post.id,
+          slug: post.slug,
+          title: post.title,
+          user_id: post.user_id,
+          thumbnail_url: post.thumbnail_url,
+          contents_short: post.contents_short,
+          contents: post.contents,
+        }
+      });
+    } catch (e) {
+      return [];
+    }
   }
 }
 

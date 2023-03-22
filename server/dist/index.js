@@ -4,21 +4,26 @@ import { RESTDataSource } from '@apollo/datasource-rest';
 class VibloAPI extends RESTDataSource {
     constructor() {
         super(...arguments);
-        this.baseURL = 'https://api.viblo.asia/';
+        this.baseURL = 'https://viblo.asia/api/';
     }
     async getNewestPosts(page = 1, limit = 20) {
-        const { data } = await this.get(`posts/newest?limit=${limit}&page=${page}`);
-        return data.map((post) => {
-            return {
-                id: post.id,
-                slug: post.slug,
-                title: post.title,
-                user_id: post.user_id,
-                thumbnail_url: post.thumbnail_url,
-                contents_short: post.contents_short,
-                contents: post.contents,
-            };
-        });
+        try {
+            const { data } = await this.get(`posts/newest?limit=${limit}&page=${page}`);
+            return data.map((post) => {
+                return {
+                    id: post.id,
+                    slug: post.slug,
+                    title: post.title,
+                    user_id: post.user_id,
+                    thumbnail_url: post.thumbnail_url,
+                    contents_short: post.contents_short,
+                    contents: post.contents,
+                };
+            });
+        }
+        catch (e) {
+            return [];
+        }
     }
 }
 const typeDefs = `#graphql

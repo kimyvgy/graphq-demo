@@ -8,7 +8,14 @@ import Chipbar from "~/components/chipbar";
 import QueryResult from "~/components/query-result";
 
 const NEWEST_POSTS = gql`
-# Viết truy vấn lấy dữ liệu bài viết
+  query NewestPosts {
+    newestPosts {
+      slug
+      contents_short
+      thumbnail_url
+      title
+    }
+  }
 `;
 
 export const headers: HeadersFunction = () => {
