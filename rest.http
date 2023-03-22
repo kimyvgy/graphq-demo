@@ -1,0 +1,13 @@
+### Get JWT Keys Set
+
+GET http://localhost:4000/.well-known/jwks.json HTTP/1.1
+
+### Issue access token
+
+POST http://localhost:4000/auth/token HTTP/1.1
+content-type: application/json
+
+{
+  "username": "kimyvgy",
+  "password": "secret"
+}
