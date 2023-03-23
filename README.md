@@ -15,7 +15,7 @@ yarn add -D @tsconfig/node16
 3. Cấu hình typescript:
 ```json
 {
-  "include": ["src/**/*.ts", "generate-jwk.js"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
@@ -58,7 +58,7 @@ server.get('/ping', async (request, reply) => {
   return 'pong\n'
 })
 
-server.listen({ port: 8080 }, (err, address) => {
+server.listen({ port: 4000 }, (err, address) => {
   if (err) {
     console.error(err)
     process.exit(1)
