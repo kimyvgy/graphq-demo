@@ -168,7 +168,7 @@ Các fields `iat` và `exp` được tự tạo ra khi thực hiện hàm ký.
 import fs from 'fs'
 import { sign } from 'jsonwebtoken'
 
-server.post('/id-token', async () => {
+server.post('/auth/token', async () => {
   const payload: JWTPayload = {
     iss: 'https://accounts.viblo.asia',
     sub: '1',
