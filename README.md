@@ -165,6 +165,9 @@ Các fields `iat` và `exp` được tự tạo ra khi thực hiện hàm ký.
 
 - Final code sau khi khai báo routing sẽ có mẫu như sau:
 ```typescript
+import fs from 'fs'
+import { sign } from 'jsonwebtoken'
+
 server.post('/id-token', async () => {
   const payload: JWTPayload = {
     iss: 'https://accounts.viblo.asia',
