@@ -37,7 +37,7 @@ yarn add -D @tsconfig/node16
 {
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node index.js"
+    "start": "node dist/index.js"
   }
 }
 ```
@@ -87,7 +87,7 @@ yarn add -D npm-run-all nodemon
 {
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "dev": "run-p \"dev:*\"",
     "dev:ts": "npm run build -- --watch",
     "dev:start": "nodemon dist/index.js"
