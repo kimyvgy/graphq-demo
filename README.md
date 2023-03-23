@@ -107,7 +107,7 @@ $ npm run build -- --watch
 [nodemon] watching path(s): *.*
 [nodemon] watching extensions: js,mjs,json
 [nodemon] starting `node dist/index.js`
-Server listening at http://127.0.0.1:8080
+Server listening at http://127.0.0.1:4000
 
 > build
 > tsc --watch
@@ -117,7 +117,7 @@ Server listening at http://127.0.0.1:8080
 
 [nodemon] restarting due to changes...
 [nodemon] starting `node dist/index.js`
-Server listening at http://127.0.0.1:8080
+Server listening at http://127.0.0.1:4000
 ```
 
 ## 2. Tạo RSA keys
