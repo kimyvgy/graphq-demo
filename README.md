@@ -46,7 +46,7 @@ yarn add -D @tsconfig/node16
 
 ```bash
 mkdir src
-touch index.ts
+touch src/index.ts
 ```
 
 ```typescript
